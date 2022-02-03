@@ -1,7 +1,7 @@
 name: Auto Workspace
 on: workflow_dispatch
 jobs:
-  Install And Run:
+  install_run:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
