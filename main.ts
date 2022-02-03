@@ -41,14 +41,16 @@ let prams = {
 
         const nextButton =
             (await page.$x('//div[@class="appsMaterialWizButtonPaperbuttonFocusOverlay exportOverlay"]'))[0]
-        nextButton.click()
+        await nextButton.click()
 
         await page.waitForNetworkIdle()
         const finishButton =
             (await page.$x("//div[contains(@class, 'freebirdFormviewerViewNavigationSubmitButton' )]"))[0]
-        // finishButton.click()
-        // browser.close()
-        console.log("Done")
+        await finishButton.click()
+        console.log("Check for the result")
+        await page.waitForXPath('//div[contains(@class, await "freebirdFormviewerViewResponseConfirmationMessage")]')
+        await browser.close()
+        await console.log("Done Sending The Request")
     })()
 
 
