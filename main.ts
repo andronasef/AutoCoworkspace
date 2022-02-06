@@ -47,8 +47,6 @@ let prams = {
         const finishButton =
             (await page.$x("//div[contains(@class, 'freebirdFormviewerViewNavigationSubmitButton' )]"))[0]
         await finishButton.click()
-        console.log("Check for the result")
-        await page.waitForXPath('//div[contains(@class, await "
         await browser.close()
         await console.log("Done Sending The Request")
     })()
