@@ -32,21 +32,28 @@ let prams = {
 }
 
 
-    // const options = { headless: false } as Puppeteer.LaunchOptions
+const options = { headless: false } as Puppeteer.LaunchOptions
 
     ; (async () => {
-        const browser = await Puppeteer.launch()
+        const browser = await Puppeteer.launch(options)
         const page = await browser.newPage()
         await page.goto(theurl(url, prams), { waitUntil: 'networkidle2' })
 
         const nextButton =
-            (await page.$x('//div[@class="appsMaterialWizButtonPaperbuttonFocusOverlay exportOverlay"]'))[0]
-        await nextButton.click()
-
+            (await page.$x('//span[contains(text(),"التالي")]'))[0] ?? (await page.$x('//span[contains(text(),"Next")]'))[0]
+        try {
+            await nextButton.click()
+        } catch (error) {
+            console.log(error)
+        }
         await page.waitForNetworkIdle()
         const finishButton =
-            (await page.$x("//div[contains(@class, 'freebirdFormviewerViewNavigationSubmitButton' )]"))[0]
-        await finishButton.click()
+            (await page.$x('//span[contains(text(),"إرسال")]'))[0] ?? (await page.$x('//span[contains(text(),"Submit")]'))[0]
+        try {
+            await finishButton.click()
+        } catch (error) {
+            console.log(error)
+        }
         await browser.close()
         await console.log("Done Sending The Request")
     })()
@@ -61,3 +68,4 @@ function theurl(url: string, prams: object) {
 
     return generatedURL
 }
+
