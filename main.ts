@@ -35,7 +35,7 @@ let prams = {
 const options = { headless: false } as Puppeteer.LaunchOptions
 
     ; (async () => {
-        const browser = await Puppeteer.launch(options)
+        const browser = await Puppeteer.launch()
         const page = await browser.newPage()
         await page.goto(theurl(url, prams), { waitUntil: 'networkidle2' })
 
