@@ -12,4 +12,9 @@ jobs:
       - run: npm install -g typescript
       - run: npm install -g ts-node
 
+      - uses: actions/download-artifact@v3
+        with:
+          name: proof
+          path: screenshot.jpeg
+
       - run: ts-node main.ts

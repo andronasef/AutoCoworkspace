@@ -39,22 +39,36 @@ const options = { headless: false } as Puppeteer.LaunchOptions
         const page = await browser.newPage()
         await page.goto(theurl(url, prams), { waitUntil: 'networkidle2' })
 
-        const nextButton =
+        let nextButton =
             (await page.$x('//span[contains(text(),"التالي")]'))[0] ?? (await page.$x('//span[contains(text(),"Next")]'))[0]
+
         try {
             await nextButton.click()
         } catch (error) {
             console.log(error)
         }
         await page.waitForNetworkIdle()
+
+
         const finishButton =
             (await page.$x('//span[contains(text(),"إرسال")]'))[0] ?? (await page.$x('//span[contains(text(),"Submit")]'))[0]
         try {
             await finishButton.click()
+            console.log("click on next button")
         } catch (error) {
             console.log(error)
         }
-        await browser.close()
+
+        await page.waitForNetworkIdle()
+
+        try {
+            await page.screenshot({ path: `screenshot.jpeg`, fullPage: true })
+        } catch (err) {
+            console.log(`❌ Error: ${err}`)
+        } finally {
+            await browser.close()
+            console.log(`\n🎉 Proof Captured.`)
+        }
         await console.log("Done Sending The Request")
     })()
 
