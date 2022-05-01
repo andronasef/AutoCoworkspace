@@ -13,7 +13,8 @@ jobs:
       - run: npm install -g ts-node
       - run: ts-node main.ts
 
-      - uses: actions/download-artifact@v3
+      - name: Get screenshot proof
+        uses: actions/upload-artifact@v2
         with:
-          name: proof
+          name: screenshot-proof
           path: screenshot.jpeg
